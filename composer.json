@@ -1,0 +1,34 @@
+{
+    "name": "ivan-petrunko/event-dispatcher",
+    "description": "PHP event dispatcher.",
+    "keywords": ["php", "event", "dispatcher", "listener", "handler"],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ivan Petrunko",
+            "email": "ivan@petrunko.com",
+            "homepage": "https://petrunko.com/"
+        }
+    ],
+    "require": {
+        "php": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Petrunko\\EventDispatcher\\": "src/Petrunko/EventDispatcher/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Petrunko\\EventDispatcher\\": "tests/Petrunko/EventDispatcher/"
+        }
+    },
+    "config": {
+        "process-timeout": 0,
+        "sort-packages": true
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.4"
+    }
+}
