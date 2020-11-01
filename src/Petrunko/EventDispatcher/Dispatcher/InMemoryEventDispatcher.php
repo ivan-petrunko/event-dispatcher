@@ -21,7 +21,7 @@ class InMemoryEventDispatcher implements EventDispatcherInterface
     /**
      * {@inheritDoc}
      */
-    public function addEventListener($event, EventListenerInterface ...$eventListeners): void
+    public function addEventListener($event, EventListenerInterface ...$eventListeners): self
     {
         $eventFQCN = $this->getEventFQCNByEvent($event);
         foreach ($eventListeners as $eventListener) {
@@ -36,6 +36,7 @@ class InMemoryEventDispatcher implements EventDispatcherInterface
         foreach ($eventListeners as $eventListener) {
             self::$events[$eventHash][] = $eventListener;
         }
+        return $this;
     }
 
     /**
@@ -56,10 +57,11 @@ class InMemoryEventDispatcher implements EventDispatcherInterface
     /**
      * {@inheritDoc}
      */
-    public function removeEvent($event): void
+    public function removeEvent($event): self
     {
         $eventHash = $this->getEventHash($event);
         unset(self::$events[$eventHash]);
+        return $this;
     }
 
     /**

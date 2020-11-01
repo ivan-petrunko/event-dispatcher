@@ -15,9 +15,10 @@ interface EventDispatcherInterface
     /**
      * @param string|EventInterface $event
      * @param EventListenerInterface ...$eventListeners
+     * @return $this
      * @throws EventDispatcherException
      */
-    public function addEventListener($event, EventListenerInterface ...$eventListeners): void;
+    public function addEventListener($event, EventListenerInterface ...$eventListeners): self;
 
     /**
      * @param EventInterface $event
@@ -27,9 +28,10 @@ interface EventDispatcherInterface
 
     /**
      * @param string|EventInterface $event
+     * @return $this
      * @throws EventDispatcherException
      */
-    public function removeEvent($event): void;
+    public function removeEvent($event): self;
 
     /**
      * @param string|EventInterface $event

@@ -56,8 +56,9 @@ class InMemoryEventDispatcherTest extends TestCase
         $this->eventDispatcher->addEventListener(SayHelloEvent::class, $this->goodbyeEventListener);
 
         // remove events...
-        $this->eventDispatcher->removeEvent($this->helloEvent);
-        $this->eventDispatcher->removeEvent($this->goodbyeEvent);
+        $this->eventDispatcher
+            ->removeEvent($this->helloEvent)
+            ->removeEvent($this->goodbyeEvent);
 
         // test adding multiple event listeners at once and it should fail because of unsupported event
         $this->expectException(UnsupportedEventException::class);
