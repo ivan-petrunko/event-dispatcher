@@ -10,12 +10,14 @@ use Petrunko\EventDispatcher\Listener\EventListenerInterface;
 
 interface EventDispatcherInterface
 {
+    public function reset(): void;
+
     /**
      * @param string|EventInterface $event
-     * @param EventListenerInterface $eventListener
+     * @param EventListenerInterface ...$eventListeners
      * @throws EventDispatcherException
      */
-    public function addEventListener($event, EventListenerInterface $eventListener): void;
+    public function addEventListener($event, EventListenerInterface ...$eventListeners): void;
 
     /**
      * @param EventInterface $event

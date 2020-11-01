@@ -59,6 +59,17 @@ class InMemoryEventDispatcherTest extends TestCase
         $this->eventDispatcher->removeEvent($this->helloEvent);
         $this->eventDispatcher->removeEvent($this->goodbyeEvent);
 
+        // test adding multiple event listeners at once and it should fail because of unsupported event
+        $this->expectException(UnsupportedEventException::class);
+        $this->eventDispatcher->addEventListener(
+            SayHelloEvent::class,
+            $this->helloEventListener,
+            $this->goodbyeEventListener
+        );
+
+        // test reset
+        $this->eventDispatcher->reset();
+
         // ... and check they're really clean now
         self::assertEquals([], $this->eventDispatcher->getEventListeners(SayHelloEvent::class));
         self::assertEquals([], $this->eventDispatcher->getEventListeners(SayGoodbyeEvent::class));

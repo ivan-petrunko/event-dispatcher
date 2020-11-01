@@ -13,18 +13,29 @@ class InMemoryEventDispatcher implements EventDispatcherInterface
 {
     private static array $events = [];
 
+    public function reset(): void
+    {
+        self::$events = [];
+    }
+
     /**
      * {@inheritDoc}
      */
-    public function addEventListener($event, EventListenerInterface $eventListener): void
+    public function addEventListener($event, EventListenerInterface ...$eventListeners): void
     {
         $eventFQCN = $this->getEventFQCNByEvent($event);
-        if (!$eventListener->isSupport($event)) {
-            throw new UnsupportedEventException("Event {$eventFQCN} not supported.");
+        foreach ($eventListeners as $eventListener) {
+            if (!$eventListener->isSupport($event)) {
+                throw new UnsupportedEventException(
+                    sprintf('Event %s not supported by %s.', $eventFQCN, get_class($eventListener))
+                );
+            }
         }
         $eventHashByFQCN = $this->getEventHashByFQCN($eventFQCN);
         $eventHash = $eventHashByFQCN;
-        self::$events[$eventHash][] = $eventListener;
+        foreach ($eventListeners as $eventListener) {
+            self::$events[$eventHash][] = $eventListener;
+        }
     }
 
     /**
